@@ -63,7 +63,9 @@ class Curve:
                 result.append(entry)
 
         self.update_data(result)
-
+        #Does it have sense????
+       
+        
     
     def discard_n_sig(self, n):
         ''' Returns set of data entries, that has magnitudo 
@@ -80,7 +82,7 @@ class Curve:
                 discarded.append(entry)
                 _sum += div
 
-        self.discarded_mag_mean_value = _sum/(len(discarded)+1)
+        self.discarded_mag_mean_value = _sum/(len(discarded)+1) #why add 1? 
 
         return np.array(discarded)
 
