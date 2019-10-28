@@ -3,14 +3,14 @@ import numpy as np
 class Predictor:
 
     error_threshold = 0.1  
-    std_threshold   = 200
-    count_threshold = 5
-    width           = 3
-    value_threshold = 10**3
+    std_threshold   = 200 #why 200? 
+    count_threshold = 5 
+    width           = 3 #width of odchylenie standardowe
+    value_threshold = 10**3 #????????????
 
     @staticmethod
     def predict_test(curve, std_thr = std_threshold, count_thr = count_threshold):
-        #pls add coment here 
+        #pls add coment here
         minimal_count = 1               
 
         discarded = curve.discard_n_sig(Predictor.width)
@@ -28,7 +28,7 @@ class Predictor:
         curve.time_std  = times.std()
         curve.discarded_count = count
 
-        found = curve.time_std < std_thr and count > count_thr and curve.some_value > Predictor.value_threshold
+        found = curve.time_std < std_thr and count > count_thr and curve.some_value > Predictor.value_threshold # third nierówność wtf
         return found
 
 
@@ -37,6 +37,7 @@ class Predictor:
         ''' Calculates mean time for discarded points, but with
             weights. Weight is calculated by following formula:
             w_i = (mag[i] - mag_mean)^2 / error[i]^2 '''
+            #what it does? 
         dist_from_mean = np.array([ curve.mag_mean - i[1] for i in discarded])
         errors = discarded[:,2]/curve.mag_mean
         weights = dist_from_mean**3 / errors**1
