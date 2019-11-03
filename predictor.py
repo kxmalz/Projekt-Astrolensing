@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 class Predictor:
 
@@ -7,6 +8,7 @@ class Predictor:
     count_threshold = 5
     width           = 3
     value_threshold = 10**3
+    chi_threshold = 137
 
     @staticmethod
     def predict_test(curve, std_thr = std_threshold, count_thr = count_threshold):
@@ -29,9 +31,18 @@ class Predictor:
         curve.discarded_count = count
 
         found = curve.time_std < std_thr and count > count_thr and curve.some_value > Predictor.value_threshold
-        return found
-
-
+        
+        #GAUSS ADDED HERE
+        if found:
+                chi=0
+                x=0
+                for x in range (len(Parser.data)):
+                    chi=chi+((exp((-1)*((curve.mags-curve.some_value)**2)/(2*curve.time_std**2))/(curve.time_std*sqrt(2*math.pi)))-curve.mags) #need to change curve.mags to sth what works
+        
+        foundG = chi<chi_threshold
+        return foundG
+    
+    
     @staticmethod
     def calculate_weighted_time_mean(curve, discarded):
         ''' Calculates mean time for discarded points, but with
