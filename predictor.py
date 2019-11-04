@@ -37,7 +37,7 @@ class Predictor:
                 chi=0
                 x=0
                 for x in range (len(Parser.data)):
-                    chi=chi+((exp((-1)*((curve.mags-curve.some_value)**2)/(2*curve.time_std**2))/(curve.time_std*sqrt(2*math.pi)))-curve.mags) #need to change curve.mags to sth what works
+                    chi=chi+((exp((-1)*((curve.mags-curve.some_value)**2)/(2*curve.time_std**2))/(curve.time_std*sqrt(2*math.pi)))-curve.mags)**2 #need to change curve.mags to sth what works
         
         foundG = chi<chi_threshold
         return foundG
