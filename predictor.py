@@ -31,9 +31,10 @@ class Predictor:
         curve.discarded_count = count
 
         found = curve.time_std < std_thr and count > count_thr and curve.some_value > Predictor.value_threshold
+        return found
         
         #GAUSS ADDED HERE
-        if found:
+    def predict_test_Gauss(curve, std_thr = std_threshold, count_thr = count_threshold):
                 chi=0
                 x=0
                 for x in range (len(Parser.data)):
